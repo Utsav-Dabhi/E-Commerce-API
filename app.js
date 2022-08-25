@@ -44,23 +44,13 @@ app.use(cors());
 app.use(xss());
 app.use(mongoSanatize());
 
-app.use(morgan('tiny')); // HTTP logger
+// app.use(morgan('tiny')); // HTTP logger {for dev only}
 app.use(express.json()); // used to access json data form requests and responses from req.body
 app.use(cookieParser(process.env.JWT_SECRET)); // to access the cookies in front-end
 app.use(express.static('./public')); // to share public files
 app.use(fileUpload());
 
 /* ROUTES */
-app.get('/', (req, res) => {
-  res.send('Home Page');
-});
-
-app.get('/api/v1', (req, res) => {
-  // console.log(req.cookies);
-  console.log(req.signedCookies);
-  res.send('Cookies');
-});
-
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/products', productRouter);
